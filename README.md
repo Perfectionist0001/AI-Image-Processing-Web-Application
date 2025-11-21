@@ -1,2 +1,2 @@
-# -AI-Image-Processing-Web-Application-
+# AI-Image-Processing-Web-Application-
 Cloud 
