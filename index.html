@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="PixelAI — Free AI image enhancer. Filters, brightness, contrast, saturation, before/after compare. 100% browser-based.">
+<title>PixelAI — AI Image Enhancer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a class="logo" href="index.html">
+      <div class="logo-icon">✦</div>
+      <span class="logo-text">PixelAI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="#tool">Enhance</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <h1>
+    Transform Your Photos<br>
+    <span class="line2">with <span class="gradient-text">AI Magic</span></span>
+  </h1>
+  <p class="hero-sub">Upload any image and apply professional-grade enhancements instantly — filters, brightness, contrast, saturation and more. All in your browser.</p>
+  <div class="hero-actions">
+    <a href="#tool" class="btn btn-primary btn-lg">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      Upload &amp; Enhance
+    </a>
+    <a href="#features" class="btn btn-secondary btn-lg">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      See Features
+    </a>
+  </div>
+</section>
+
+<!-- ===== TOOL SECTION ===== -->
+<div class="container" id="tool">
+
+  <!-- Upload Card -->
+  <div class="card reveal" id="upload-card">
+    <div class="card-title">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      Upload Your Image
+    </div>
+    <div class="upload-zone" id="upload-zone" role="button" tabindex="0" aria-label="Upload image">
+      <div class="upload-icon-wrap">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="1.8">
+          <defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+          <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+        </svg>
+      </div>
+      <h3>Drop your image here</h3>
+      <p>or click to browse your files</p>
+      <p class="upload-hint">JPG, PNG supported · Max 10MB · Processed locally</p>
+      <div class="upload-btn-row">
+        <label for="file-input" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Browse Files
+        </label>
+        <span class="btn btn-ghost">or drag &amp; drop</span>
+      </div>
+      <input type="file" id="file-input" accept="image/jpeg,image/png" aria-label="Choose image">
+    </div>
+  </div>
+
+  <!-- Controls Card -->
+  <div class="card hidden" id="controls-card">
+    <div class="card-title">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      Enhancement Controls
+    </div>
+
+    <div class="preview-wrap">
+      <img id="preview-img" class="preview-img" src="#" alt="Preview">
+      <div class="img-chips" id="img-chips"></div>
+    </div>
+
+    <p style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin-bottom:10px">Quick Presets</p>
+    <div class="filter-grid">
+      <button class="filter-card active" data-filter="none"><span class="filter-emoji">🎯</span>Original</button>
+      <button class="filter-card" data-filter="vivid"><span class="filter-emoji">🌈</span>Vivid</button>
+      <button class="filter-card" data-filter="cool"><span class="filter-emoji">❄️</span>Cool</button>
+      <button class="filter-card" data-filter="warm"><span class="filter-emoji">🔥</span>Warm</button>
+      <button class="filter-card" data-filter="dramatic"><span class="filter-emoji">🎭</span>Dramatic</button>
+      <button class="filter-card" data-filter="fade"><span class="filter-emoji">🌫️</span>Fade</button>
+      <button class="filter-card" data-filter="noir"><span class="filter-emoji">🖤</span>Noir</button>
+      <button class="filter-card" data-filter="vintage"><span class="filter-emoji">📷</span>Vintage</button>
+      <button class="filter-card" data-filter="neon"><span class="filter-emoji">💜</span>Neon</button>
+    </div>
+
+    <div class="sliders-grid" style="margin-top:20px">
+      <div class="slider-group">
+        <div class="slider-label">Brightness <span class="slider-val" id="brightness-val">0</span></div>
+        <input type="range" id="brightness" min="-80" max="80" value="0">
+      </div>
+      <div class="slider-group">
+        <div class="slider-label">Contrast <span class="slider-val" id="contrast-val">0</span></div>
+        <input type="range" id="contrast" min="-50" max="80" value="0">
+      </div>
+      <div class="slider-group">
+        <div class="slider-label">Saturation <span class="slider-val" id="saturation-val">0</span></div>
+        <input type="range" id="saturation" min="-100" max="100" value="0">
+      </div>
+      <div class="slider-group">
+        <div class="slider-label">Sharpness <span class="slider-val" id="sharpness-val">0</span></div>
+        <input type="range" id="sharpness" min="0" max="100" value="0">
+      </div>
+    </div>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-header"><span id="progress-text">Processing...</span><span id="progress-pct">0%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+
+    <div class="btn-group">
+      <button id="process-btn" class="btn btn-primary btn-lg">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Enhance Image
+      </button>
+      <button id="reset-btn" class="btn btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+        Reset
+      </button>
+    </div>
+  </div>
+
+  <!-- Result Card -->
+  <div class="card hidden" id="result-card">
+    <div class="card-title">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Enhanced Result
+    </div>
+    <div class="success-msg" id="success-msg">✦ Enhancement complete! Drag the slider to compare before &amp; after.</div>
+
+    <div class="compare-wrap" id="compare-wrap">
+      <img id="compare-before" src="#" alt="Before">
+      <div class="compare-after-clip" id="compare-after-clip">
+        <img id="compare-after" src="#" alt="After">
+      </div>
+      <div class="compare-line" id="compare-line"></div>
+      <div class="compare-knob" id="compare-knob">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/><polyline points="9 18 3 12 9 6" transform="translate(6,0)"/></svg>
+      </div>
+      <div class="compare-tags"><span class="compare-tag">BEFORE</span><span class="compare-tag">AFTER</span></div>
+    </div>
+
+    <img id="result-img" class="result-img hidden" src="#" alt="Enhanced">
+
+    <div class="btn-group">
+      <button id="download-btn" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Enhanced
+      </button>
+      <button id="compare-toggle" class="btn btn-outline">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="18"/><rect x="14" y="3" width="7" height="18"/></svg>
+        Toggle View
+      </button>
+      <button id="new-img-btn" class="btn btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        New Image
+      </button>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ===== FEATURES ===== -->
+<div class="container" id="features">
+  <div class="section-title reveal">
+    <h2>Everything You Need to Perfect Your Images</h2>
+    <p>Professional-grade tools, zero cost, zero sign-up. All processing happens in your browser.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card" style="--delay:.05s">
+      <div class="feat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+      <h3>Detail Enhancement</h3>
+      <p>Recover lost details and sharpen blurry images with precision sharpness control up to 100%.</p>
+    </div>
+    <div class="feature-card" style="--delay:.1s">
+      <div class="feat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <h3>9 Filter Presets</h3>
+      <p>One-click presets: Vivid, Cool, Warm, Dramatic, Fade, Noir, Vintage, Neon and Original.</p>
+    </div>
+    <div class="feature-card" style="--delay:.15s">
+      <div class="feat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      <h3>Manual Adjustments</h3>
+      <p>Fine-tune brightness, contrast, saturation and sharpness with real-time slider controls.</p>
+    </div>
+    <div class="feature-card" style="--delay:.2s">
+      <div class="feat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2"><rect x="3" y="3" width="7" height="18"/><rect x="14" y="3" width="7" height="18"/></svg></div>
+      <h3>Before/After Compare</h3>
+      <p>Interactive drag slider to compare original and enhanced images side by side in real time.</p>
+    </div>
+    <div class="feature-card" style="--delay:.25s">
+      <div class="feat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <h3>100% Private</h3>
+      <p>All processing happens in your browser using Canvas API. Your images never leave your device.</p>
+    </div>
+    <div class="feature-card" style="--delay:.3s">
+      <div class="feat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+      <h3>Free Download</h3>
+      <p>Download your enhanced image as a high-quality JPEG instantly, no watermarks ever.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FAQ ===== -->
+<div class="container">
+  <div class="section-title reveal">
+    <h2>Frequently Asked Questions</h2>
+  </div>
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <button class="faq-q">Is PixelAI really free? <span class="faq-arrow">▾</span></button>
+      <div class="faq-a">Yes, completely free. No sign-up, no credit card, no watermarks. All features are available to everyone.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Are my images uploaded to a server? <span class="faq-arrow">▾</span></button>
+      <div class="faq-a">No. All image processing happens entirely in your browser using the HTML5 Canvas API. Your images never leave your device.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What image formats are supported? <span class="faq-arrow">▾</span></button>
+      <div class="faq-a">Currently JPG and PNG are supported, up to 10MB in size.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What does the Enhance button actually do? <span class="faq-arrow">▾</span></button>
+      <div class="faq-a">It applies your chosen filter preset and manual slider values — adjusting brightness, contrast, saturation and sharpness — to every pixel using Canvas pixel manipulation.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I use the enhanced images commercially? <span class="faq-arrow">▾</span></button>
+      <div class="faq-a">Yes. The enhanced images are yours. We don't claim any rights over images processed through PixelAI.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <p>&copy; <span id="year"></span> PixelAI. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="footer-badge">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      100% Private · No uploads
+    </div>
+  </div>
+</footer>
+
+<button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">☀️</button>
+
+<script src="script.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const uploadZone   = document.getElementById('upload-zone');
+  const fileInput    = document.getElementById('file-input');
+  const controlsCard = document.getElementById('controls-card');
+  const previewImg   = document.getElementById('preview-img');
+  const processBtn   = document.getElementById('process-btn');
+  const resultCard   = document.getElementById('result-card');
+  const resultImg    = document.getElementById('result-img');
+  const successMsg   = document.getElementById('success-msg');
+  const resetBtn     = document.getElementById('reset-btn');
+  const downloadBtn  = document.getElementById('download-btn');
+  const newImgBtn    = document.getElementById('new-img-btn');
+  const progressWrap = document.getElementById('progress-wrap');
+  const progressFill = document.getElementById('progress-fill');
+  const progressPct  = document.getElementById('progress-pct');
+  const progressText = document.getElementById('progress-text');
+  const imgChips     = document.getElementById('img-chips');
+  const compareBefore= document.getElementById('compare-before');
+  const compareAfter = document.getElementById('compare-after');
+  const compareWrap  = document.getElementById('compare-wrap');
+  const compareToggle= document.getElementById('compare-toggle');
+
+  const MAX = 10 * 1024 * 1024;
+  let originalSrc = null;
+
+  const PRESETS = {
+    none:     [0,0,0,0],
+    vivid:    [10,20,60,20],
+    cool:     [5,10,-20,10],
+    warm:     [15,10,30,10],
+    dramatic: [0,60,20,40],
+    fade:     [20,-20,-30,0],
+    noir:     [0,30,-100,30],
+    vintage:  [10,15,20,5],
+    neon:     [5,20,80,15],
+  };
+
+  ['dragenter','dragover','dragleave','drop'].forEach(e =>
+    document.body.addEventListener(e, ev => { ev.preventDefault(); ev.stopPropagation(); })
+  );
+  ['dragenter','dragover'].forEach(e => uploadZone.addEventListener(e, () => uploadZone.classList.add('drag-over')));
+  ['dragleave','drop'].forEach(e => uploadZone.addEventListener(e, () => uploadZone.classList.remove('drag-over')));
+  uploadZone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+  uploadZone.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') fileInput.click(); });
+  fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
+
+  function handleFile(file) {
+    if (!['image/jpeg','image/jpg','image/png'].includes(file.type)) { showToast('Please select a JPG or PNG.','error'); return; }
+    if (file.size > MAX) { showToast('File too large. Max 10MB.','error'); return; }
+    const reader = new FileReader();
+    reader.onerror = () => showToast('Error reading file.','error');
+    reader.onload = ev => {
+      originalSrc = ev.target.result;
+      previewImg.src = originalSrc;
+      controlsCard.classList.remove('hidden');
+      resultCard.classList.add('hidden');
+      successMsg.style.display = 'none';
+      const img = new Image();
+      img.onload = () => {
+        imgChips.innerHTML = `<span class="chip">📐 ${img.width}×${img.height}</span><span class="chip">📦 ${(file.size/1024).toFixed(0)} KB</span><span class="chip">${file.type.split('/')[1].toUpperCase()}</span>`;
+      };
+      img.src = originalSrc;
+      controlsCard.scrollIntoView({behavior:'smooth',block:'start'});
+      showToast('Image loaded! Choose a preset or adjust manually.','info');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  document.querySelectorAll('.filter-card').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-card').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const [b,c,s,sh] = PRESETS[btn.dataset.filter] || [0,0,0,0];
+      setSlider('brightness',b); setSlider('contrast',c);
+      setSlider('saturation',s); setSlider('sharpness',sh);
+    });
+  });
+
+  function setSlider(id, val) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = val;
+    el.dispatchEvent(new Event('input'));
+  }
+
+  processBtn.addEventListener('click', () => {
+    processBtn.disabled = true;
+    processBtn.innerHTML = '<span class="spinner"></span> Enhancing...';
+    progressWrap.style.display = 'block';
+    progressFill.style.width = '0%';
+
+    const steps = [[15,'Analyzing...'],[35,'Brightness & contrast...'],[60,'Saturation...'],[80,'Sharpening...'],[95,'Finalizing...']];
+    let i = 0;
+    const iv = setInterval(() => {
+      if (i < steps.length) {
+        const [p,l] = steps[i++];
+        progressFill.style.width = p+'%';
+        progressPct.textContent = p+'%';
+        progressText.textContent = l;
+      }
+    }, 300);
+
+    setTimeout(() => {
+      clearInterval(iv);
+      progressFill.style.width = '100%';
+      progressPct.textContent = '100%';
+      progressText.textContent = 'Done!';
+      const b  = +document.getElementById('brightness').value;
+      const c  = +document.getElementById('contrast').value;
+      const s  = +document.getElementById('saturation').value;
+      const sh = +document.getElementById('sharpness').value;
+      enhance(originalSrc, b, c, s, sh).then(src => {
+        compareBefore.src = originalSrc;
+        compareAfter.src  = src;
+        resultImg.src     = src;
+        compareWrap.classList.remove('hidden');
+        resultImg.classList.add('hidden');
+        resultCard.classList.remove('hidden');
+        successMsg.style.display = 'block';
+        progressWrap.style.display = 'none';
+        processBtn.disabled = false;
+        processBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Enhance Image';
+        resultCard.scrollIntoView({behavior:'smooth'});
+        showToast('Enhancement complete!','success');
+      });
+    }, 1800);
+  });
+
+  function enhance(src, brightness, contrast, saturation, sharpness) {
+    return new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.width; canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const id = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const d = id.data;
+        const cf = 1 + contrast/100;
+        const sf = 1 + saturation/100;
+        for (let i = 0; i < d.length; i += 4) {
+          let r=d[i],g=d[i+1],b=d[i+2];
+          r=(r-128)*cf+128+brightness; g=(g-128)*cf+128+brightness; b=(b-128)*cf+128+brightness;
+          const gr=.299*r+.587*g+.114*b;
+          r=gr+(r-gr)*sf; g=gr+(g-gr)*sf; b=gr+(b-gr)*sf;
+          d[i]=Math.min(255,Math.max(0,r)); d[i+1]=Math.min(255,Math.max(0,g)); d[i+2]=Math.min(255,Math.max(0,b));
+        }
+        ctx.putImageData(id, 0, 0);
+        if (sharpness > 0) {
+          ctx.globalCompositeOperation='overlay';
+          ctx.globalAlpha=sharpness/500;
+          ctx.drawImage(canvas,0,0);
+          ctx.globalCompositeOperation='source-over';
+          ctx.globalAlpha=1;
+        }
+        resolve(canvas.toDataURL('image/jpeg',.93));
+      };
+      img.src = src;
+    });
+  }
+
+  compareToggle.addEventListener('click', () => {
+    const show = compareWrap.classList.contains('hidden');
+    compareWrap.classList.toggle('hidden', !show);
+    resultImg.classList.toggle('hidden', show);
+  });
+
+  downloadBtn.addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.download = 'pixelai-enhanced.jpg';
+    a.href = resultImg.classList.contains('hidden') ? compareAfter.src : resultImg.src;
+    a.click();
+    showToast('Image downloaded!','success');
+  });
+
+  function doReset() {
+    fileInput.value=''; originalSrc=null;
+    previewImg.src='#'; imgChips.innerHTML='';
+    controlsCard.classList.add('hidden');
+    resultCard.classList.add('hidden');
+    successMsg.style.display='none';
+    progressWrap.style.display='none';
+    processBtn.disabled=false;
+    processBtn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Enhance Image';
+    document.querySelectorAll('.filter-card').forEach(b=>b.classList.remove('active'));
+    document.querySelector('.filter-card[data-filter="none"]').classList.add('active');
+    ['brightness','contrast','saturation','sharpness'].forEach(id=>setSlider(id,0));
+    uploadZone.scrollIntoView({behavior:'smooth'});
+  }
+  resetBtn.addEventListener('click', doReset);
+  newImgBtn.addEventListener('click', doReset);
+
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+});
+</script>
+</body>
+</html>
